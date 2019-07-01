@@ -61,6 +61,7 @@
 // Must be last.
 #include <google/protobuf/port_def.inc>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -552,13 +553,13 @@ std::string StripProto(const std::string& filename) {
 const char* PrimitiveTypeName(FieldDescriptor::CppType type) {
   switch (type) {
     case FieldDescriptor::CPPTYPE_INT32:
-      return "int32_t";
+      return "::unity::google::protobuf::int32_t";
     case FieldDescriptor::CPPTYPE_INT64:
-      return "int64_t";
+      return "::unity::google::protobuf::int64_t";
     case FieldDescriptor::CPPTYPE_UINT32:
-      return "uint32_t";
+      return "::unity::google::protobuf::uint32_t";
     case FieldDescriptor::CPPTYPE_UINT64:
-      return "uint64_t";
+      return "::unity::google::protobuf::uint64_t";
     case FieldDescriptor::CPPTYPE_DOUBLE:
       return "double";
     case FieldDescriptor::CPPTYPE_FLOAT:
@@ -1515,3 +1516,4 @@ bool EnableMessageOwnedArena(const Descriptor* desc, const Options& options) {
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

@@ -40,6 +40,7 @@
 #include <google/protobuf/descriptor.pb.h>
 
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -909,3 +910,4 @@ void RepeatedStringFieldGenerator::GenerateConstinitInitializer(
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

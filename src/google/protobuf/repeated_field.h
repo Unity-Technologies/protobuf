@@ -67,6 +67,17 @@
 #error "You cannot SWIG proto headers"
 #endif
 
+// Forward-declare these so that we can make them friends.
+namespace unity {
+namespace upb {
+namespace google_opensource {
+class GMR_Handlers;
+}  // namespace google_opensource
+}  // namespace upb
+}  // namespace unity
+
+
+namespace unity {
 namespace google {
 namespace protobuf {
 
@@ -498,7 +509,7 @@ class RepeatedField final {
   using FastAdder = FastAdderImpl<>;
 
   friend class TestRepeatedFieldHelper;
-  friend class ::google::protobuf::internal::ParseContext;
+  friend class ::unity::google::protobuf::internal::ParseContext;
 };
 
 namespace internal {
@@ -1212,6 +1223,7 @@ extern template class PROTOBUF_EXPORT_TEMPLATE_DECLARE RepeatedIterator<double>;
 
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #include <google/protobuf/port_undef.inc>
 

@@ -42,6 +42,7 @@
 #include <google/protobuf/compiler/java/java_message_lite.h>
 #include <google/protobuf/compiler/java/java_service.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -84,3 +85,4 @@ ServiceGenerator* ImmutableGeneratorFactory::NewServiceGenerator(
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

@@ -161,6 +161,7 @@
 // Must be included last.
 #include <google/protobuf/port_def.inc>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 
@@ -727,7 +728,7 @@ class PROTOBUF_EXPORT EpsCopyOutputStream {
   PROTOBUF_NOINLINE
 #endif
   uint8_t* WriteStringMaybeAliased(uint32_t num, const std::string& s,
-                                   uint8_t* ptr) {
+                                  uint8_t* ptr) {
     std::ptrdiff_t size = s.size();
     if (PROTOBUF_PREDICT_FALSE(
             size >= 128 || end_ - ptr + 16 - TagSize(num << 3) - 1 < size)) {
@@ -959,7 +960,7 @@ class PROTOBUF_EXPORT EpsCopyOutputStream {
   uint8_t* WriteRawLittleEndian(const void* data, int size, uint8_t* ptr);
 #ifndef PROTOBUF_LITTLE_ENDIAN
   uint8_t* WriteRawLittleEndian32(const void* data, int size, uint8_t* ptr);
-  uint8_t* WriteRawLittleEndian64(const void* data, int size, uint8_t* ptr);
+  ::unity::google::protobuf:::unity::google::protobuf:::uint8_t* WriteRawLittleEndian64(const void* data, int size, uint8_t* ptr);
 #endif
 
   // These methods are for CodedOutputStream. Ideally they should be private
@@ -1803,6 +1804,7 @@ inline uint8_t* CodedOutputStream::WriteStringToArray(const std::string& str,
 }  // namespace io
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #if defined(_MSC_VER) && _MSC_VER >= 1300 && !defined(__INTEL_COMPILER)
 #pragma runtime_checks("c", restore)

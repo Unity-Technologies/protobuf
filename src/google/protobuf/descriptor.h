@@ -81,6 +81,7 @@
 #endif
 
 
+namespace unity {
 namespace google {
 namespace protobuf {
 
@@ -220,7 +221,7 @@ class PROTOBUF_EXPORT LazyDescriptor {
   // build time if the symbol wasn't found and building of the file containing
   // that type is delayed because lazily_build_dependencies_ is set on the pool.
   // Should not be called after Set() has been called.
-  void SetLazy(StringPiece name, const FileDescriptor* file);
+  void SetLazy(unity::google::protobuf::stringpiece_internal::StringPiece name, const FileDescriptor* file);
 
   // Returns the current value of the descriptor, thread-safe. If SetLazy(...)
   // has been called, will do a one-time cross link of the type specified,
@@ -2001,14 +2002,14 @@ class PROTOBUF_EXPORT DescriptorPool {
   // Return true if the given name is a sub-symbol of any non-package
   // descriptor that already exists in the descriptor pool.  (The full
   // definition of such types is already known.)
-  bool IsSubSymbolOfBuiltType(StringPiece name) const;
+  bool IsSubSymbolOfBuiltType(unity::google::protobuf::stringpiece_internal::StringPiece name) const;
 
   // Tries to find something in the fallback database and link in the
   // corresponding proto file.  Returns true if successful, in which case
   // the caller should search for the thing again.  These are declared
   // const because they are called by (semantically) const methods.
-  bool TryFindFileInFallbackDatabase(StringPiece name) const;
-  bool TryFindSymbolInFallbackDatabase(StringPiece name) const;
+  bool TryFindFileInFallbackDatabase(unity::google::protobuf::stringpiece_internal::StringPiece name) const;
+  bool TryFindSymbolInFallbackDatabase(unity::google::protobuf::stringpiece_internal::StringPiece name) const;
   bool TryFindExtensionInFallbackDatabase(const Descriptor* containing_type,
                                           int field_number) const;
 
@@ -2029,13 +2030,13 @@ class PROTOBUF_EXPORT DescriptorPool {
   // symbol is defined if necessary. Will create a placeholder if the type
   // doesn't exist in the fallback database, or the file doesn't build
   // successfully.
-  Symbol CrossLinkOnDemandHelper(StringPiece name,
+  Symbol CrossLinkOnDemandHelper(unity::google::protobuf::stringpiece_internal::StringPiece name,
                                  bool expecting_enum) const;
 
   // Create a placeholder FileDescriptor of the specified name
-  FileDescriptor* NewPlaceholderFile(StringPiece name) const;
+  FileDescriptor* NewPlaceholderFile(unity::google::protobuf::stringpiece_internal::StringPiece name) const;
   FileDescriptor* NewPlaceholderFileWithMutexHeld(
-      StringPiece name, internal::FlatAllocator& alloc) const;
+      unity::google::protobuf::stringpiece_internal::StringPiece name, internal::FlatAllocator& alloc) const;
 
   enum PlaceholderType {
     PLACEHOLDER_MESSAGE,
@@ -2043,9 +2044,9 @@ class PROTOBUF_EXPORT DescriptorPool {
     PLACEHOLDER_EXTENDABLE_MESSAGE
   };
   // Create a placeholder Descriptor of the specified name
-  Symbol NewPlaceholder(StringPiece name,
+  Symbol NewPlaceholder(unity::google::protobuf::stringpiece_internal::StringPiece name,
                         PlaceholderType placeholder_type) const;
-  Symbol NewPlaceholderWithMutexHeld(StringPiece name,
+  Symbol NewPlaceholderWithMutexHeld(unity::google::protobuf::stringpiece_internal::StringPiece name,
                                      PlaceholderType placeholder_type) const;
 
   // If fallback_database_ is nullptr, this is nullptr.  Otherwise, this is a
@@ -2433,6 +2434,7 @@ inline FileDescriptor::Syntax FileDescriptor::syntax() const {
 
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #undef PROTOBUF_INTERNAL_CHECK_CLASS_SIZE
 #include <google/protobuf/port_undef.inc>

@@ -38,6 +38,7 @@
 #include <cerrno>
 #include <string>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace {
@@ -153,3 +154,4 @@ TEST(StringPrintfTest, LargeBuf) {
 }  // anonymous namespace
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

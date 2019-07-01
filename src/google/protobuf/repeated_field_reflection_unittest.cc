@@ -40,6 +40,7 @@
 #include <google/protobuf/reflection.h>
 #include <gtest/gtest.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 
@@ -707,3 +708,4 @@ TEST(RepeatedFieldReflectionTest, RepeatedFieldRefDynamicMessage) {
 }  // namespace
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

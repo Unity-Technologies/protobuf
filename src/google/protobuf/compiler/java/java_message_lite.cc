@@ -56,6 +56,7 @@
 #include <google/protobuf/compiler/java/java_name_resolver.h>
 #include <google/protobuf/descriptor.pb.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -996,3 +997,4 @@ void ImmutableMessageLiteGenerator::GenerateKotlinExtensions(
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

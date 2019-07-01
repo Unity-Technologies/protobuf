@@ -52,6 +52,7 @@
 #include <google/protobuf/compiler/cpp/cpp_message_field.h>
 #include <google/protobuf/descriptor.pb.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -393,3 +394,4 @@ const FieldGenerator& FieldGeneratorMap::get(
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

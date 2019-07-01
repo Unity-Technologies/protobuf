@@ -177,14 +177,16 @@
 #if defined(PROTOBUF_NAMESPACE) || defined(PROTOBUF_NAMESPACE_ID)
 #error PROTOBUF_NAMESPACE or PROTOBUF_NAMESPACE_ID was previously defined
 #endif
-#define PROTOBUF_NAMESPACE "google::protobuf"
-#define PROTOBUF_NAMESPACE_ID google::protobuf
+#define PROTOBUF_NAMESPACE "unity::google::protobuf"
+#define PROTOBUF_NAMESPACE_ID unity::google::protobuf
 #define PROTOBUF_NAMESPACE_OPEN \
+  namespace unity {             \
   namespace google {            \
   namespace protobuf {
 #define PROTOBUF_NAMESPACE_CLOSE \
   } /* namespace protobuf */     \
-  } /* namespace google */
+  } /* namespace google */       \
+  } /* namespace unity */
 
 #ifdef PROTOBUF_ALWAYS_INLINE
 #error PROTOBUF_ALWAYS_INLINE was previously defined
@@ -415,7 +417,7 @@
 // choose 16 rather than some other number just in case the compiler would
 // be confused by an unaligned pointer.
 #define PROTOBUF_FIELD_OFFSET(TYPE, FIELD)                                \
-  static_cast< ::uint32_t>(reinterpret_cast<const char*>(                   \
+  static_cast< ::unity::google::protobuf::uint32_t>(reinterpret_cast<const char*>(                   \
                              &reinterpret_cast<const TYPE*>(16)->FIELD) - \
                          reinterpret_cast<const char*>(16))
 #endif
@@ -735,10 +737,10 @@
 #endif
 
 #define PROTOBUF_TC_PARAM_DECL                                 \
-  ::google::protobuf::MessageLite *msg, const char *ptr,                 \
-      ::google::protobuf::internal::ParseContext *ctx,                   \
-      const ::google::protobuf::internal::TcParseTableBase *table,       \
-      uint64_t hasbits, ::google::protobuf::internal::TcFieldData data
+  ::unity::google::protobuf::MessageLite *msg, const char *ptr,                 \
+      ::unity::google::protobuf::internal::ParseContext *ctx,                   \
+      const ::unity::google::protobuf::internal::TcParseTableBase *table,       \
+      uint64_t hasbits, ::unity::google::protobuf::internal::TcFieldData data
 
 #ifdef PROTOBUF_UNUSED
 #error PROTOBUF_UNUSED was previously defined

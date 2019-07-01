@@ -45,6 +45,7 @@
 #include <google/protobuf/util/internal/json_escaping.h>
 
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace util {
@@ -174,7 +175,7 @@ util::Status JsonStreamParser::Parse(StringPiece json) {
   // Find the structurally valid UTF8 prefix and parse only that.
   int n = internal::UTF8SpnStructurallyValid(chunk);
   if (n > 0) {
-    util::Status status = ParseChunk(chunk.substr(0, n));
+	  util::Status status = ParseChunk(chunk.substr(0, n));
 
     // Any leftover characters are stashed in leftover_ for later parsing when
     // there is more data available.
@@ -361,7 +362,7 @@ util::Status JsonStreamParser::ParseValue(TokenType type) {
 }
 
 util::Status JsonStreamParser::ParseString() {
-  util::Status result = ParseStringHelper();
+	util::Status result = ParseStringHelper();
   if (result.ok()) {
     ow_->RenderString(key_, parsed_);
     key_ = StringPiece();
@@ -398,7 +399,7 @@ util::Status JsonStreamParser::ParseStringHelper() {
       }
       // Parse a unicode escape if we found \u in the string.
       if (data[1] == 'u') {
-        util::Status result = ParseUnicodeEscape();
+	      util::Status result = ParseUnicodeEscape();
         if (!result.ok()) {
           return result;
         }
@@ -619,7 +620,7 @@ util::Status JsonStreamParser::ParseNumberHelper(NumberResult* result) {
 
   // Floating point number, parse as a double.
   if (floating) {
-    util::Status status = ParseDoubleHelper(number, result);
+	  util::Status status = ParseDoubleHelper(number, result);
     if (status.ok()) {
       p_.remove_prefix(index);
     }
@@ -640,7 +641,7 @@ util::Status JsonStreamParser::ParseNumberHelper(NumberResult* result) {
       return util::Status();
     } else {
       // If the value is too large, parse it as double.
-      util::Status status = ParseDoubleHelper(number, result);
+	    util::Status status = ParseDoubleHelper(number, result);
       if (status.ok()) {
         p_.remove_prefix(index);
       }
@@ -661,7 +662,7 @@ util::Status JsonStreamParser::ParseNumberHelper(NumberResult* result) {
     return util::Status();
   } else {
     // If the value is too large, parse it as double.
-    util::Status status = ParseDoubleHelper(number, result);
+	  util::Status status = ParseDoubleHelper(number, result);
     if (status.ok()) {
       p_.remove_prefix(index);
     }
@@ -993,3 +994,4 @@ JsonStreamParser::TokenType JsonStreamParser::GetNextTokenType() {
 }  // namespace util
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

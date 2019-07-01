@@ -80,6 +80,7 @@
 
 #include <google/protobuf/port_def.inc>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace util {
@@ -242,11 +243,12 @@ inline const T& StatusOr<T>::value() const {
 
 }  // namespace statusor_internal
 
-using ::google::protobuf::util::statusor_internal::StatusOr;
+using ::unity::google::protobuf::util::statusor_internal::StatusOr;
 
 }  // namespace util
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #include <google/protobuf/port_undef.inc>
 

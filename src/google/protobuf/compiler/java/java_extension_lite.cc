@@ -37,6 +37,7 @@
 #include <google/protobuf/compiler/java/java_helpers.h>
 #include <google/protobuf/compiler/java/java_name_resolver.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -113,3 +114,4 @@ int ImmutableExtensionLiteGenerator::GenerateRegistrationCode(
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

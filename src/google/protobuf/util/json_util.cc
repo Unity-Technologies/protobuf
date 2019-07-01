@@ -51,6 +51,7 @@
 #include <google/protobuf/port_def.inc>
 // clang-format on
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace util {
@@ -231,7 +232,7 @@ void DeleteGeneratedTypeResolver() { delete generated_type_resolver_; }
 void InitGeneratedTypeResolver() {
   generated_type_resolver_ = NewTypeResolverForDescriptorPool(
       kTypeUrlPrefix, DescriptorPool::generated_pool());
-  ::google::protobuf::internal::OnShutdown(&DeleteGeneratedTypeResolver);
+  ::unity::google::protobuf::internal::OnShutdown(&DeleteGeneratedTypeResolver);
 }
 
 TypeResolver* GetGeneratedTypeResolver() {
@@ -280,3 +281,4 @@ util::Status JsonStringToMessage(StringPiece input, Message* message,
 }  // namespace util
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

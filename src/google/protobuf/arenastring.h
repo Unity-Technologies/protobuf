@@ -50,6 +50,7 @@
 #endif
 
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace internal {
@@ -264,7 +265,7 @@ struct PROTOBUF_EXPORT ArenaStringPtr {
 
   template <typename RefWrappedType>
   void Set(std::reference_wrapper<RefWrappedType> const_string_ref,
-           ::google::protobuf::Arena* arena) {
+           ::unity::google::protobuf::Arena* arena) {
     Set(const_string_ref.get(), arena);
   }
 
@@ -324,7 +325,7 @@ struct PROTOBUF_EXPORT ArenaStringPtr {
   // Clears content, but keeps allocated std::string if arena != nullptr, to
   // avoid the overhead of heap operations. After this returns, the content
   // (as seen by the user) will always be equal to |default_value|.
-  void ClearToDefault(const LazyString& default_value, ::google::protobuf::Arena* arena);
+  void ClearToDefault(const LazyString& default_value, ::unity::google::protobuf::Arena* arena);
 
   // Swaps internal pointers. Arena-safety semantics: this is guarded by the
   // logic in Swap()/UnsafeArenaSwap() at the message level, so this method is
@@ -368,7 +369,7 @@ struct PROTOBUF_EXPORT ArenaStringPtr {
     std::swap(lhs->tagged_ptr_, rhs->tagged_ptr_);
   }
 
-  friend class ::google::protobuf::internal::SwapFieldHelper;
+  friend class ::unity::google::protobuf::internal::SwapFieldHelper;
   friend class TcParser;
 
   // Slow paths.
@@ -376,7 +377,7 @@ struct PROTOBUF_EXPORT ArenaStringPtr {
   // MutableSlow requires that !IsString() || IsDefault
   // Variadic to support 0 args for empty default and 1 arg for LazyString.
   template <typename... Lazy>
-  std::string* MutableSlow(::google::protobuf::Arena* arena, const Lazy&... lazy_default);
+  std::string* MutableSlow(::unity::google::protobuf::Arena* arena, const Lazy&... lazy_default);
 
   friend class EpsCopyInputStream;
 };
@@ -467,6 +468,7 @@ inline std::string* ArenaStringPtr::UnsafeMutablePointer() {
 }  // namespace internal
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #include <google/protobuf/port_undef.inc>
 

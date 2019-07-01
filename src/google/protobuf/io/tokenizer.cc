@@ -98,6 +98,7 @@
 #include <google/protobuf/io/zero_copy_stream.h>
 #include <google/protobuf/stubs/stl_util.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace io {
@@ -1183,3 +1184,4 @@ bool Tokenizer::IsIdentifier(const std::string& text) {
 }  // namespace io
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

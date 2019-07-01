@@ -34,6 +34,7 @@
 
 #include <gtest/gtest.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -65,3 +66,4 @@ TEST(JavaDocCommentTest, Escaping) {
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

@@ -47,6 +47,7 @@
 #include <google/protobuf/stubs/strutil.h>
 
 
+namespace unity {
 namespace google {
 namespace protobuf {
 
@@ -57,3 +58,4 @@ namespace {
 }  // namespace
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

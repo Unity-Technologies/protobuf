@@ -38,14 +38,15 @@
 #include <google/protobuf/wire_format.h>
 #include <google/protobuf/compiler/cpp/cpp_helpers.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
 namespace cpp {
 
 namespace {
-using google::protobuf::internal::WireFormat;
-using google::protobuf::internal::WireFormatLite;
+using unity::google::protobuf::internal::WireFormat;
+using unity::google::protobuf::internal::WireFormatLite;
 
 std::vector<const FieldDescriptor*> GetOrderedFields(
     const Descriptor* descriptor, const Options& options) {
@@ -1713,3 +1714,4 @@ std::string FieldParseFunctionName(
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

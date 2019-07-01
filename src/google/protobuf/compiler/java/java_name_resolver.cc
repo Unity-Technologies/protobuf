@@ -38,6 +38,7 @@
 #include <google/protobuf/compiler/java/java_helpers.h>
 #include <google/protobuf/compiler/java/java_names.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -378,3 +379,4 @@ std::string ClassNameResolver::GetDowngradedClassName(
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

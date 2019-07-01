@@ -53,6 +53,7 @@
 #include <google/protobuf/compiler/java/java_name_resolver.h>
 #include <google/protobuf/descriptor.pb.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -149,3 +150,4 @@ void MessageBuilderLiteGenerator::GenerateCommonBuilderMethods(
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

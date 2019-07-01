@@ -43,6 +43,7 @@
 
 #include <google/protobuf/port_def.inc>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 
@@ -330,6 +331,7 @@ class PROTOC_EXPORT Generator : public CodeGenerator {
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #include <google/protobuf/port_undef.inc>
 

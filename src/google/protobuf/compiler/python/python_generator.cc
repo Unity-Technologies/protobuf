@@ -64,6 +64,7 @@
 #include <google/protobuf/stubs/substitute.h>
 #include <google/protobuf/descriptor.pb.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -1396,3 +1397,4 @@ void Generator::CopyPublicDependenciesAliases(
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

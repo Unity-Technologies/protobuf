@@ -67,6 +67,7 @@
 #include <google/protobuf/io/io_win32.h>
 
 
+namespace unity {
 namespace google {
 namespace protobuf {
 
@@ -1079,3 +1080,4 @@ TEST(MESSAGE_TEST_NAME, PreservesFloatingPointNegative0) {
 
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

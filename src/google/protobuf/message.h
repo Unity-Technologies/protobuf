@@ -134,6 +134,7 @@
 #error "You cannot SWIG proto headers"
 #endif
 
+namespace unity {
 namespace google {
 namespace protobuf {
 
@@ -1481,6 +1482,7 @@ const Type& Reflection::GetRaw(const Message& message,
 }
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #include <google/protobuf/port_undef.inc>
 

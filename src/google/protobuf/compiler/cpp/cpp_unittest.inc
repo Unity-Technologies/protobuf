@@ -81,6 +81,7 @@
 // Must be included last.
 #include <google/protobuf/port_def.inc>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -675,7 +676,7 @@ TEST(GENERATED_MESSAGE_TEST_NAME, SerializationToArray) {
   TestUtil::SetAllFields(&message1);
   int size = message1.ByteSizeLong();
   data.resize(size);
-  uint8_t* start = reinterpret_cast<uint8_t*>(::google::protobuf::string_as_array(&data));
+  uint8_t* start = reinterpret_cast<uint8_t*>(::unity::google::protobuf::string_as_array(&data));
   uint8_t* end = message1.SerializeWithCachedSizesToArray(start);
   EXPECT_EQ(size, end - start);
   EXPECT_TRUE(message2.ParseFromString(data));
@@ -689,8 +690,7 @@ TEST(GENERATED_MESSAGE_TEST_NAME, PackedFieldsSerializationToArray) {
   TestUtil::SetPackedFields(&packed_message1);
   int packed_size = packed_message1.ByteSizeLong();
   packed_data.resize(packed_size);
-  uint8_t* start =
-      reinterpret_cast<uint8_t*>(::google::protobuf::string_as_array(&packed_data));
+  uint8_t* start = reinterpret_cast<uint8_t*>(::unity::google::protobuf::string_as_array(&packed_data));
   uint8_t* end = packed_message1.SerializeWithCachedSizesToArray(start);
   EXPECT_EQ(packed_size, end - start);
   EXPECT_TRUE(packed_message2.ParseFromString(packed_data));
@@ -707,7 +707,7 @@ TEST(GENERATED_MESSAGE_TEST_NAME, SerializationToStream) {
   data.resize(size);
   {
     // Allow the output stream to buffer only one byte at a time.
-    io::ArrayOutputStream array_stream(::google::protobuf::string_as_array(&data), size, 1);
+    io::ArrayOutputStream array_stream(::unity::google::protobuf::string_as_array(&data), size, 1);
     io::CodedOutputStream output_stream(&array_stream);
     message1.SerializeWithCachedSizes(&output_stream);
     EXPECT_FALSE(output_stream.HadError());
@@ -726,7 +726,7 @@ TEST(GENERATED_MESSAGE_TEST_NAME, PackedFieldsSerializationToStream) {
   data.resize(size);
   {
     // Allow the output stream to buffer only one byte at a time.
-    io::ArrayOutputStream array_stream(::google::protobuf::string_as_array(&data), size, 1);
+    io::ArrayOutputStream array_stream(::unity::google::protobuf::string_as_array(&data), size, 1);
     io::CodedOutputStream output_stream(&array_stream);
     message1.SerializeWithCachedSizes(&output_stream);
     EXPECT_FALSE(output_stream.HadError());
@@ -1270,7 +1270,7 @@ class GENERATED_SERVICE_TEST_NAME : public testing::Test {
       foo_(descriptor_->FindMethodByName("Foo")),
       bar_(descriptor_->FindMethodByName("Bar")),
       stub_(&mock_channel_),
-      done_(::google::protobuf::NewPermanentCallback(&DoNothing)) {}
+      done_(::unity::google::protobuf::NewPermanentCallback(&DoNothing)) {}
 
   void SetUp() override {
     ASSERT_TRUE(foo_ != nullptr);
@@ -1853,7 +1853,7 @@ std::string data;
 message1.set_foo_int(123);
 int size = message1.ByteSizeLong();
 data.resize(size);
-uint8_t* start = reinterpret_cast<uint8_t*>(::google::protobuf::string_as_array(&data));
+uint8_t* start = reinterpret_cast<uint8_t*>(::unity::google::protobuf::string_as_array(&data));
 uint8_t* end = message1.SerializeWithCachedSizesToArray(start);
 EXPECT_EQ(size, end - start);
 EXPECT_TRUE(message2.ParseFromString(data));
@@ -1867,7 +1867,7 @@ EXPECT_EQ(message2.foo_int(), 123);
     message1.set_foo_string("foo");
     int size = message1.ByteSizeLong();
     data.resize(size);
-    uint8_t* start = reinterpret_cast<uint8_t*>(::google::protobuf::string_as_array(&data));
+    uint8_t* start = reinterpret_cast<uint8_t*>(::unity::google::protobuf::string_as_array(&data));
     uint8_t* end = message1.SerializeWithCachedSizesToArray(start);
     EXPECT_EQ(size, end - start);
     EXPECT_TRUE(message2.ParseFromString(data));
@@ -1882,7 +1882,7 @@ EXPECT_EQ(message2.foo_int(), 123);
     message1.set_foo_bytes("qux");
     int size = message1.ByteSizeLong();
     data.resize(size);
-    uint8_t* start = reinterpret_cast<uint8_t*>(::google::protobuf::string_as_array(&data));
+    uint8_t* start = reinterpret_cast<uint8_t*>(::unity::google::protobuf::string_as_array(&data));
     uint8_t* end = message1.SerializeWithCachedSizesToArray(start);
     EXPECT_EQ(size, end - start);
     EXPECT_TRUE(message2.ParseFromString(data));
@@ -1896,7 +1896,7 @@ EXPECT_EQ(message2.foo_int(), 123);
     message1.set_foo_enum(UNITTEST::TestOneof2::FOO);
     int size = message1.ByteSizeLong();
     data.resize(size);
-    uint8_t* start = reinterpret_cast<uint8_t*>(::google::protobuf::string_as_array(&data));
+    uint8_t* start = reinterpret_cast<uint8_t*>(::unity::google::protobuf::string_as_array(&data));
     uint8_t* end = message1.SerializeWithCachedSizesToArray(start);
     EXPECT_EQ(size, end - start);
     EXPECT_TRUE(message2.ParseFromString(data));
@@ -1910,7 +1910,7 @@ EXPECT_EQ(message2.foo_int(), 123);
     message1.mutable_foo_message()->set_qux_int(234);
     int size = message1.ByteSizeLong();
     data.resize(size);
-    uint8_t* start = reinterpret_cast<uint8_t*>(::google::protobuf::string_as_array(&data));
+    uint8_t* start = reinterpret_cast<uint8_t*>(::unity::google::protobuf::string_as_array(&data));
     uint8_t* end = message1.SerializeWithCachedSizesToArray(start);
     EXPECT_EQ(size, end - start);
     EXPECT_TRUE(message2.ParseFromString(data));
@@ -1924,7 +1924,7 @@ EXPECT_EQ(message2.foo_int(), 123);
     message1.mutable_foogroup()->set_a(345);
     int size = message1.ByteSizeLong();
     data.resize(size);
-    uint8_t* start = reinterpret_cast<uint8_t*>(::google::protobuf::string_as_array(&data));
+    uint8_t* start = reinterpret_cast<uint8_t*>(::unity::google::protobuf::string_as_array(&data));
     uint8_t* end = message1.SerializeWithCachedSizesToArray(start);
     EXPECT_EQ(size, end - start);
     EXPECT_TRUE(message2.ParseFromString(data));
@@ -1949,7 +1949,7 @@ data.resize(size);
 
 {
   // Allow the output stream to buffer only one byte at a time.
-  io::ArrayOutputStream array_stream(::google::protobuf::string_as_array(&data), size, 1);
+  io::ArrayOutputStream array_stream(::unity::google::protobuf::string_as_array(&data), size, 1);
   io::CodedOutputStream output_stream(&array_stream);
   message1.SerializeWithCachedSizes(&output_stream);
   EXPECT_FALSE(output_stream.HadError());
@@ -1970,7 +1970,7 @@ data.resize(size);
 
     {
       // Allow the output stream to buffer only one byte at a time.
-      io::ArrayOutputStream array_stream(::google::protobuf::string_as_array(&data), size, 1);
+      io::ArrayOutputStream array_stream(::unity::google::protobuf::string_as_array(&data), size, 1);
       io::CodedOutputStream output_stream(&array_stream);
       message1.SerializeWithCachedSizes(&output_stream);
       EXPECT_FALSE(output_stream.HadError());
@@ -1992,7 +1992,7 @@ data.resize(size);
 
     {
       // Allow the output stream to buffer only one byte at a time.
-      io::ArrayOutputStream array_stream(::google::protobuf::string_as_array(&data), size, 1);
+      io::ArrayOutputStream array_stream(::unity::google::protobuf::string_as_array(&data), size, 1);
       io::CodedOutputStream output_stream(&array_stream);
       message1.SerializeWithCachedSizes(&output_stream);
       EXPECT_FALSE(output_stream.HadError());
@@ -2013,7 +2013,7 @@ data.resize(size);
 
     {
       // Allow the output stream to buffer only one byte at a time.
-      io::ArrayOutputStream array_stream(::google::protobuf::string_as_array(&data), size, 1);
+      io::ArrayOutputStream array_stream(::unity::google::protobuf::string_as_array(&data), size, 1);
       io::CodedOutputStream output_stream(&array_stream);
       message1.SerializeWithCachedSizes(&output_stream);
       EXPECT_FALSE(output_stream.HadError());
@@ -2034,7 +2034,7 @@ data.resize(size);
 
     {
       // Allow the output stream to buffer only one byte at a time.
-      io::ArrayOutputStream array_stream(::google::protobuf::string_as_array(&data), size, 1);
+      io::ArrayOutputStream array_stream(::unity::google::protobuf::string_as_array(&data), size, 1);
       io::CodedOutputStream output_stream(&array_stream);
       message1.SerializeWithCachedSizes(&output_stream);
       EXPECT_FALSE(output_stream.HadError());
@@ -2055,7 +2055,7 @@ data.resize(size);
 
     {
       // Allow the output stream to buffer only one byte at a time.
-      io::ArrayOutputStream array_stream(::google::protobuf::string_as_array(&data), size, 1);
+      io::ArrayOutputStream array_stream(::unity::google::protobuf::string_as_array(&data), size, 1);
       io::CodedOutputStream output_stream(&array_stream);
       message1.SerializeWithCachedSizes(&output_stream);
       EXPECT_FALSE(output_stream.HadError());
@@ -2198,7 +2198,7 @@ TEST_F(GENERATED_SERVICE_TEST_NAME, NoGenericServices) {
   // Verify that a ServiceDescriptor is generated for the service even if the
   // class itself is not.
   const FileDescriptor* file =
-      ::google::protobuf::unittest::no_generic_services_test::TestMessage::descriptor()
+      ::unity::google::protobuf::unittest::no_generic_services_test::TestMessage::descriptor()
           ->file();
 
   ASSERT_EQ(1, file->service_count());
@@ -2234,5 +2234,6 @@ TEST(DESCRIPTOR_INIT_TEST_NAME, Initialized) {
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #include <google/protobuf/port_undef.inc>

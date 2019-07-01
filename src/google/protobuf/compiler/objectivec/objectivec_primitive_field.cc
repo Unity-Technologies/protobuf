@@ -38,6 +38,7 @@
 #include <google/protobuf/wire_format.h>
 #include <google/protobuf/wire_format_lite.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -188,3 +189,4 @@ RepeatedPrimitiveFieldGenerator::~RepeatedPrimitiveFieldGenerator() {}
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

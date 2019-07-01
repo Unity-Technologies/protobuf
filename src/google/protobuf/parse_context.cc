@@ -41,6 +41,7 @@
 // Must be included last.
 #include <google/protobuf/port_def.inc>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace internal {
@@ -556,5 +557,6 @@ const char* UnknownFieldParse(uint32_t tag, std::string* unknown,
 }  // namespace internal
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #include <google/protobuf/port_undef.inc>

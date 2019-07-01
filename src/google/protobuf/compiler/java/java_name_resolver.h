@@ -36,6 +36,7 @@
 
 #include <google/protobuf/stubs/common.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 class Descriptor;
@@ -150,5 +151,6 @@ class ClassNameResolver {
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #endif  // GOOGLE_PROTOBUF_COMPILER_JAVA_NAME_RESOLVER_H__

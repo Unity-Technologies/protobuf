@@ -50,6 +50,7 @@
 #include <google/protobuf/io/io_win32.h>
 
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -198,3 +199,4 @@ int PluginMain(int argc, char* argv[], const CodeGenerator* generator) {
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

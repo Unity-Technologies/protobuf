@@ -67,6 +67,7 @@
 
 #define DEBUG_STRING_SILENT_MARKER "\t "
 
+namespace unity {
 namespace google {
 namespace protobuf {
 
@@ -2738,5 +2739,6 @@ void TextFormat::Printer::PrintUnknownFields(
 
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #include <google/protobuf/port_undef.inc>

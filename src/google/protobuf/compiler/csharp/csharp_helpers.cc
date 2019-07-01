@@ -55,6 +55,7 @@
 #include <google/protobuf/compiler/csharp/csharp_repeated_primitive_field.h>
 #include <google/protobuf/compiler/csharp/csharp_wrapper_field.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -590,3 +591,4 @@ bool IsNullable(const FieldDescriptor* descriptor) {
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

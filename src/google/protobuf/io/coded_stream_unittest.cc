@@ -53,6 +53,7 @@
 #include <google/protobuf/port_def.inc>
 
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace io {
@@ -1343,5 +1344,6 @@ TEST_F(CodedStreamTest, InputOver2G) {
 }  // namespace io
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #include <google/protobuf/port_undef.inc>

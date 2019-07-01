@@ -44,6 +44,7 @@
 // Must be included last.
 #include <google/protobuf/port_def.inc>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 class Descriptor;
@@ -98,6 +99,7 @@ class PROTOC_EXPORT PyiGenerator : public google::protobuf::compiler::CodeGenera
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namepsace unity
 
 #include <google/protobuf/port_undef.inc>
 

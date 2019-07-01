@@ -39,6 +39,7 @@
 #include <google/protobuf/stubs/strutil.h>
 #include <google/protobuf/compiler/cpp/cpp_helpers.h>
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace compiler {
@@ -494,3 +495,4 @@ void RepeatedPrimitiveFieldGenerator::GenerateConstinitInitializer(
 }  // namespace compiler
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity

@@ -55,6 +55,7 @@
 #error "You cannot SWIG proto headers"
 #endif
 
+namespace unity {
 namespace google {
 namespace protobuf {
 class DynamicMessage;
@@ -275,6 +276,7 @@ class PROTOBUF_EXPORT MapKey {
 
 }  // namespace protobuf
 }  // namespace google
+}   // namespace unity
 namespace std {
 template <>
 struct hash<::PROTOBUF_NAMESPACE_ID::MapKey> {
@@ -318,6 +320,7 @@ struct hash<::PROTOBUF_NAMESPACE_ID::MapKey> {
 };
 }  // namespace std
 
+namespace unity {
 namespace google {
 namespace protobuf {
 namespace internal {
@@ -936,6 +939,7 @@ class PROTOBUF_EXPORT MapIterator {
 
 }  // namespace protobuf
 }  // namespace google
+}  // namespace unity
 
 #ifdef _MSC_VER
 #pragma warning(pop)  // restore warning C4265
