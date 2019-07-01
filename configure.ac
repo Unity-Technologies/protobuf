@@ -93,7 +93,18 @@ AS_IF([test "x${ac_cv_env_CXXFLAGS_set}" = "x"],[
   # Protocol Buffers contains several checks that are intended to be used only
   # for debugging and which might hurt performance.  Most users are probably
   # end users who don't want these checks, so add -DNDEBUG by default.
-  CXXFLAGS="$CXXFLAGS -std=c++11 -DNDEBUG"
+  case "${host_os}" in
+    linux*)
+      CXXFLAGS="$CXXFLAGS -std=c++11 -DNDEBUG -fPIC --sysroot=../unity/PlatformDependent/Linux/External/NonRedistributable/gcc-4.8.5/builds/x86_64-ubuntu14.04-linux-gnu/sysroot"
+        ;;
+    darwin*)
+      CXXFLAGS="$CXXFLAGS -std=c++11 -DNDEBUG -mmacosx-version-min=10.9 -fvisibility-inlines-hidden"
+        ;;
+    *)
+        AC_MSG_ERROR(["OS $host_os is not supported"])
+        ;;
+  esac
+  # CXXFLAGS="$CXXFLAGS -std=c++11 -DNDEBUG"
 
   AC_MSG_RESULT([use default: $PROTOBUF_OPT_FLAG $CXXFLAGS])
 ],[
