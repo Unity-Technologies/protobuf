@@ -98,7 +98,7 @@ AS_IF([test "x${ac_cv_env_CXXFLAGS_set}" = "x"],[
       CXXFLAGS="$CXXFLAGS -std=c++11 -DNDEBUG -fPIC --sysroot=../unity/PlatformDependent/Linux/External/NonRedistributable/gcc-4.8.5/builds/x86_64-ubuntu14.04-linux-gnu/sysroot"
         ;;
     darwin*)
-      CXXFLAGS="$CXXFLAGS -std=c++11 -DNDEBUG -mmacosx-version-min=10.9 -fvisibility-inlines-hidden"
+      CXXFLAGS="$CXXFLAGS -std=c++11 -DNDEBUG -mmacosx-version-min=10.9 -fvisibility=hidden"
         ;;
     *)
         AC_MSG_ERROR(["OS $host_os is not supported"])
