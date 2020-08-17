@@ -1,0 +1,19 @@
+name: Build protobuf - CentOS 7 x64 with Clang9
+
+agent:
+  type: Unity::VM
+  image: cds-ops/ubuntu-18.04-agent:latest
+  flavor: b1.small
+
+artifacts:
+  build_linux:
+    paths:
+      - builds/**
+
+# After building, recursively copy H files from the source to the destination.
+# This is a superset of what make does, but only a couple of extra test H files are included.
+commands:
+- mono bee/bee.exe
+- |
+  find src -type f -name '*.h' -o -name '*.inc' | while read P; do cp --parents "$P" builds; done
+  mv builds/src builds/include
