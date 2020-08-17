@@ -18,4 +18,3 @@ commands:
     xcopy cmake\install\bin builds\bin\win64 /s /i
     xcopy cmake\install\lib builds\lib\win64 /s /i
     xcopy cmake\install_debug\lib\*.lib builds\lib\win64 /s /i
-
