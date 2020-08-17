@@ -108,10 +108,8 @@ class Build
         {
             var nativeProgramConfiguration = new NativeProgramConfiguration(CodeGen.Release, toolchain, lump: true);
 
-            //we want to build the nativeprogram into an executable. each toolchain can provide different ways of "linking" (static, dynamic, executable are default ones)
             var format = toolchain.StaticLibraryFormat;
 
-            //and here the magic happens, the nativeprogram gets setup for the specific configuration we just made.
             var deployedProgram = np.SetupSpecificConfiguration(nativeProgramConfiguration, format).DeployTo(GetBuildTargetDir(toolchain));
             Backend.Current.AddAliasDependency(toolchain.ActionName, deployedProgram.Path);
         }
