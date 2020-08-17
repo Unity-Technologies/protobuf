@@ -112,7 +112,8 @@ class Build
             var format = toolchain.StaticLibraryFormat;
 
             //and here the magic happens, the nativeprogram gets setup for the specific configuration we just made.
-            np.SetupSpecificConfiguration(nativeProgramConfiguration, format).DeployTo(GetBuildTargetDir(toolchain));
+            var deployedProgram = np.SetupSpecificConfiguration(nativeProgramConfiguration, format).DeployTo(GetBuildTargetDir(toolchain));
+            Backend.Current.AddAliasDependency(toolchain.ActionName, deployedProgram.Path);
         }
 
         return np;
