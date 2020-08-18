@@ -104,7 +104,7 @@ class Build
         np.Defines.Add("HAVE_PTHREAD=1");
         np.CompilerSettings().Add(s => s.WithRTTI(true));
 
-        foreach(var toolchain in toolchains)
+        foreach (var toolchain in toolchains)
         {
             var nativeProgramConfiguration = new NativeProgramConfiguration(CodeGen.Release, toolchain, lump: true);
 
@@ -112,6 +112,12 @@ class Build
 
             var deployedProgram = np.SetupSpecificConfiguration(nativeProgramConfiguration, format).DeployTo(GetBuildTargetDir(toolchain));
             Backend.Current.AddAliasDependency(toolchain.ActionName, deployedProgram.Path);
+
+            if (toolchain.Platform is LinuxPlatform)
+            {
+                var toCopy = GetHeaderFilePaths(toolchains);
+                Backend.Current.AddDependency(deployedProgram.Path, toCopy);
+            }
         }
 
         return np;
@@ -143,6 +149,18 @@ class Build
         Console.WriteLine("Build Targets\n{0}", string.Join("\n", toolchains.Select(t => $"{t.ActionName.ToLowerInvariant()} {(t.CanBuild ? "" : " (can't build)")}")));
 
         return toolchains.Where(t => t.CanBuild).ToArray();
+    }
+
+    static IEnumerable<NPath> GetHeaderFilePaths(IEnumerable<ToolChain> toolchains)
+    {
+        var includeDir = "src/google/protobuf".ToNPath();
+        var destinationDir = "builds/include/google/protobuf".ToNPath();
+
+        var allHeaders = from f in includeDir.Files(recurse: true)
+                         where f.Extension == "h" || f.Extension == "inc"
+                         select CopyTool.Instance().Setup(destinationDir.Combine(f.RelativeTo(includeDir)), f);
+
+        return allHeaders;
     }
 
     static void Main()
