@@ -1,4 +1,4 @@
-name: Build protobuf - Windows 10 x64
+name: Build protobuf - Windows 10 x64 with VS 2017
 
 agent:
   type: Unity::VM
