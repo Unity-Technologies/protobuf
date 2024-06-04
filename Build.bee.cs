@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bee.Core.Stevedore;
+using Bee.Toolchain.GNU;
 using Bee.Toolchain.VisualStudio;
 using Bee.Toolchain.VisualStudio.MsvcVersions;
 using Bee.Toolchain.Windows;
@@ -110,6 +111,7 @@ class Build
         np.IncludeDirectories.Add("src");
         np.Defines.Add("HAVE_PTHREAD=1");
         np.CompilerSettings().Add(s => s.WithRTTI(true));
+        np.CompilerSettingsForGccLike().Add(s => s.WithGlibcxxUseCxx11Abi(true));
 
         foreach (var toolchain in toolchains)
         {
@@ -227,6 +229,7 @@ class Build
         np.IncludeDirectories.Add("src");
         np.Defines.Add("HAVE_PTHREAD=1");
         np.CompilerSettings().Add(s => s.WithRTTI(true));
+        np.CompilerSettingsForGccLike().Add(s => s.WithGlibcxxUseCxx11Abi(true));
         np.Libraries.Add(libProtobuf);
 
         foreach (var toolchain in toolchains)
