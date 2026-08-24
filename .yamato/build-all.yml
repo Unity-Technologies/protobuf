@@ -13,16 +13,19 @@ create-build-zip:
 
   agent:
     type: Unity::VM
-    image: platform-foundation/windows-bokken:latest
-    flavor: b1.small
+    image: slough-ops/ubuntu-24.04-base:v0.0.4-1336798
+    flavor: b1.medium
 
   artifacts:
     builds:
       paths:
-        - builds.zip
+        - builds.tar.zst
 
   commands:
-    - choco install 7zip
-    - mkdir builds\Google.Protobuf
-    - move csharp\src\Google.Protobuf\bin builds\Google.Protobuf\
-    - 7z a builds.zip .\builds\*
+    - curl -L -o bsdtar.zip https://public-stevedore.unity3d.com/r/public/bsdtar-linux-x64/3.8.9_3327cead_a63db9f0bd2c8c7dcfd35f5627eb47cab74075acdb50f5c7be2e524a9351126e.zip
+    - unzip bsdtar.zip -d bsdtar
+    - chmod +x bsdtar/bsdtar
+    - mkdir -p builds/Google.Protobuf
+    - mv csharp/src/Google.Protobuf/bin builds/Google.Protobuf/
+    # builds.tar.zst unpacks faster than the old builds.zip
+    - ./bsdtar/bsdtar --zstd --options zstd:compression-level=22 -cf builds.tar.zst -C builds bin Google.Protobuf include lib
