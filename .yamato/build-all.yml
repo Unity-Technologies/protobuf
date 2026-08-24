@@ -20,6 +20,7 @@ create-build-zip:
     builds:
       paths:
         - builds.tar.zst
+      type: single_file
 
   commands:
     - curl -L -o bsdtar.zip https://public-stevedore.unity3d.com/r/public/bsdtar-linux-x64/3.8.9_3327cead_a63db9f0bd2c8c7dcfd35f5627eb47cab74075acdb50f5c7be2e524a9351126e.zip
