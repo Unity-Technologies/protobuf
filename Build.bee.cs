@@ -13,9 +13,9 @@ using Bee.Toolchain.Windows;
 
 class Build
 {
-    static NativeProgram SetupLibProtobuf(IEnumerable<ToolChain> toolchains)
+    static NativeProgram CreateLibProtobuf(string name)
     {
-        var np = new NativeProgram("libprotobuf")
+        var np = new NativeProgram(name)
         {
             Sources = {
                 // Protobuff lite
@@ -112,6 +112,17 @@ class Build
         np.Defines.Add("HAVE_PTHREAD=1");
         np.CompilerSettings().Add(s => s.WithRTTI(true));
         np.CompilerSettingsForGccLike().Add(s => s.WithGlibcxxUseCxx11Abi(true));
+        return np;
+    }
+
+    static (NativeProgram staticCrt, NativeProgram dynamicCrt) SetupLibProtobuf(IEnumerable<ToolChain> toolchains)
+    {
+        var np = CreateLibProtobuf("libprotobuf");
+
+        // Windows also gets a dynamic CRT (/MD, /MDd in Debug) build in an MD subfolder, for linking into a /MD Unity Editor
+        var dynamicCrtNp = CreateLibProtobuf("libprotobuf_md");
+        dynamicCrtNp.OutputName.Add(c => c.CodeGen == CodeGen.Debug ? "libprotobufd" : "libprotobuf");
+        dynamicCrtNp.CompilerSettingsForMsvc().Add(s => s.WithCompilerRuntimeLibrary(CompilerRuntimeLibrary.Dynamic));
 
         foreach (var toolchain in toolchains)
         {
@@ -123,6 +134,12 @@ class Build
                 var deployedProgram = np.SetupSpecificConfiguration(nativeProgramConfiguration, format).DeployTo(GetBuildTargetDir(toolchain));
                 Backend.Current.AddAliasDependency(toolchain.ActionName, deployedProgram.Path);
 
+                if (toolchain.Platform is WindowsPlatform)
+                {
+                    var deployedDynamicCrtProgram = dynamicCrtNp.SetupSpecificConfiguration(nativeProgramConfiguration, format).DeployTo(GetBuildTargetDir(toolchain).Combine("MD"));
+                    Backend.Current.AddAliasDependency(toolchain.ActionName, deployedDynamicCrtProgram.Path);
+                }
+
                 if (toolchain.Platform is LinuxPlatform)
                 {
                     var toCopy = GetHeaderFilePaths(toolchains);
@@ -131,10 +148,10 @@ class Build
             }
         }
 
-        return np;
+        return (np, dynamicCrtNp);
     }
     
-    static NativeProgram SetupProtoc(IEnumerable<ToolChain> toolchains, NativeProgram libProtobuf)
+    static NativeProgram SetupProtoc(IEnumerable<ToolChain> toolchains, NativeProgram libProtobuf, NativeProgram dynamicCrtLibProtobuf)
     {
         var np = new NativeProgram("protoc")
         {
@@ -230,7 +247,10 @@ class Build
         np.Defines.Add("HAVE_PTHREAD=1");
         np.CompilerSettings().Add(s => s.WithRTTI(true));
         np.CompilerSettingsForGccLike().Add(s => s.WithGlibcxxUseCxx11Abi(true));
-        np.Libraries.Add(libProtobuf);
+        // On Windows protoc uses the dynamic CRT (/MD), like the /MD Unity Editor
+        np.CompilerSettingsForMsvc().Add(s => s.WithCompilerRuntimeLibrary(CompilerRuntimeLibrary.Dynamic));
+        np.Libraries.Add(c => c.Platform is WindowsPlatform, dynamicCrtLibProtobuf);
+        np.Libraries.Add(c => !(c.Platform is WindowsPlatform), libProtobuf);
 
         foreach (var toolchain in toolchains)
         {
@@ -295,6 +315,6 @@ class Build
         using var _ = new BuildProgramContext();
         var toolchains = GetToolchains();
         var libProtobuf = SetupLibProtobuf(toolchains);
-        var protoc = SetupProtoc(toolchains, libProtobuf);
+        var protoc = SetupProtoc(toolchains, libProtobuf.staticCrt, libProtobuf.dynamicCrt);
     }
 }
