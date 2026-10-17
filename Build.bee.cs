@@ -289,7 +289,7 @@ class Build
             ToolChain.Store.Windows().VS2019().Sdk_17134().x64(TargetWindowsVersion.Windows7, CompilerRuntimeLibrary.Dynamic),
             ToolChain.Store.Windows().VS2019().Sdk_20348().Arm64(TargetWindowsVersion.Windows7, CompilerRuntimeLibrary.Static),
             ToolChain.Store.Windows().VS2019().Sdk_20348().Arm64(TargetWindowsVersion.Windows7, CompilerRuntimeLibrary.Dynamic),
-            ToolChain.Store.Linux().Centos_7_7_1908().Clang_9_0_1().x64(),
+            ToolChain.Store.Linux().GLibC_2_35().LLVM_15_0().x64(),
             ToolChain.Store.Mac().Sdk_11_0().x64(),
             ToolChain.Store.Mac().Sdk_11_0().ARM64(),
         }.Where(t => t != null).ToArray();
