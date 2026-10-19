@@ -1,5 +1,5 @@
 windows-c-libraries:
-  name: Build protobuf - Windows x64 and arm64 with VS 2019
+  name: Build protobuf - Windows x64 and arm64 with VS 2026
 
   agent:
     type: Unity::VM
