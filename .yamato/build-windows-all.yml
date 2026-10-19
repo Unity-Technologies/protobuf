@@ -1,5 +1,5 @@
 windows-c-libraries:
-  name: Build protobuf - Windows 10 x64 with VS 2017
+  name: Build protobuf - Windows x64 and arm64 with VS 2026
 
   agent:
     type: Unity::VM
@@ -12,8 +12,8 @@ windows-c-libraries:
         - builds/**
 
   commands:
-    - .\bee\bee win_x64_vs2017_win7
-    - .\bee\bee win_arm64_vs2019_win7
+    - .\bee\bee win_x64
+    - .\bee\bee win_arm64
 
 csharp-bindings:
   name: Build C# Bindings

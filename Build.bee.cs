@@ -121,7 +121,7 @@ class Build
                 var nativeProgramConfiguration = new NativeProgramConfiguration(codegen, toolchain, lump: true);
                 var format = toolchain.StaticLibraryFormat;
                 var deployedProgram = np.SetupSpecificConfiguration(nativeProgramConfiguration, format).DeployTo(GetBuildTargetDir(toolchain));
-                Backend.Current.AddAliasDependency(toolchain.ActionName, deployedProgram.Path);
+                Backend.Current.AddAliasDependency(AliasFor(toolchain), deployedProgram.Path);
 
                 if (toolchain.Platform is LinuxPlatform)
                 {
@@ -232,17 +232,33 @@ class Build
         np.CompilerSettingsForGccLike().Add(s => s.WithGlibcxxUseCxx11Abi(true));
         np.Libraries.Add(libProtobuf);
 
-        foreach (var toolchain in toolchains)
+        // On Windows protoc is built with the dynamic CRT (/MD) only
+        foreach (var toolchain in toolchains.Where(t => !IsStaticCrtWindows(t)))
         {
             var nativeProgramConfiguration = new NativeProgramConfiguration(CodeGen.Release, toolchain, lump: true);
 
             var format = toolchain.ExecutableFormat;
 
             var deployedProgram = np.SetupSpecificConfiguration(nativeProgramConfiguration, format).DeployTo(GetBuildTargetDir(toolchain, true));
-            Backend.Current.AddAliasDependency(toolchain.ActionName, deployedProgram.Path);
+            Backend.Current.AddAliasDependency(AliasFor(toolchain), deployedProgram.Path);
         }
 
         return np;
+    }
+
+    static bool IsStaticCrtWindows(ToolChain toolchain) =>
+        toolchain is VisualStudioToolchain vs && vs.CompilerRuntimeLibrary == CompilerRuntimeLibrary.Static;
+
+    static string AliasFor(ToolChain toolchain)
+    {
+        var platform = toolchain.Platform switch
+        {
+            WindowsPlatform => "win",
+            LinuxPlatform => "linux",
+            MacOSXPlatform => "mac",
+            _ => throw new ArgumentException($"Don't know alias for toolchain {toolchain.ActionName}")
+        };
+        return $"{platform}_{toolchain.Architecture.DisplayName}";
     }
 
     static NPath GetBuildTargetDir(ToolChain toolchain, bool isExecutable = false)
@@ -251,25 +267,29 @@ class Build
         {
             {"mac_x64", "macos/x64"},
             {"mac_arm64", "macos/arm64"},
-            {"linux_x64_clang", "linux"},
-            {"win_x64_vs2017_win7", "win/x64"},
-            {"win_arm64_vs2019_win7", "win/arm64"},
+            {"linux_x64", "linux"},
+            {"win_x64", "win/x64"},
+            {"win_arm64", "win/arm64"},
         };
 
-        var name = toolchain.ActionName.ToLowerInvariant();
+        var name = AliasFor(toolchain);
         if (!mapping.ContainsKey(name))
             throw new ArgumentException($"Don't know output path for toolchain {name}");
 
+        // Windows libraries built with the dynamic CRT (/MD, /MDd in Debug) go in an MD subfolder, for linking into a /MD Unity Editor
         var typePath = isExecutable ? "bin" : "lib";
-        return $"builds/{typePath}/{mapping[name]}";
+        var crtPath = !isExecutable && toolchain is VisualStudioToolchain { CompilerRuntimeLibrary: CompilerRuntimeLibrary.Dynamic } ? "/MD" : "";
+        return $"builds/{typePath}/{mapping[name]}{crtPath}";
     }
 
     static IEnumerable<ToolChain> GetToolchains()
     {
         var toolchains = new ToolChain[] {
-            ToolChain.Store.Windows().VS2017().Sdk_17134().x64(),
-            ToolChain.Store.Windows().VS2019().Sdk_20348().Arm64(),
-            ToolChain.Store.Linux().Centos_7_7_1908().Clang_9_0_1().x64(),
+            ToolChain.Store.Windows().VS2026().Sdk_20348().x64(TargetWindowsVersion.Windows7, CompilerRuntimeLibrary.Static),
+            ToolChain.Store.Windows().VS2026().Sdk_20348().x64(TargetWindowsVersion.Windows7, CompilerRuntimeLibrary.Dynamic),
+            ToolChain.Store.Windows().VS2026().Sdk_20348().Arm64(TargetWindowsVersion.Windows7, CompilerRuntimeLibrary.Static),
+            ToolChain.Store.Windows().VS2026().Sdk_20348().Arm64(TargetWindowsVersion.Windows7, CompilerRuntimeLibrary.Dynamic),
+            ToolChain.Store.Linux().GLibC_2_35().LLVM_15_0().x64(),
             ToolChain.Store.Mac().Sdk_11_0().x64(),
             ToolChain.Store.Mac().Sdk_11_0().ARM64(),
         }.Where(t => t != null).ToArray();

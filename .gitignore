@@ -215,3 +215,8 @@ BenchmarkDotNet.Artifacts/
 # Clangd uses these common ephemeral files
 .cache
 compile_commands.json
+
+# Bee build outputs
+/artifacts/
+/builds/
+/build.gen.sln
